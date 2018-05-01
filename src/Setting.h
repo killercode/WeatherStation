@@ -3,6 +3,7 @@
 
 #ifndef Setting_h
 #define Setting_h
+
 class Setting 
 {
 	public:

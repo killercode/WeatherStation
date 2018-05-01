@@ -1,6 +1,5 @@
 #include "Arduino.h"
 #include "Setting.h"
-
 Setting::Setting()
 {
 

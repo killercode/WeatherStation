@@ -1,5 +1,6 @@
 #include "Arduino.h"
 #include <EEPROM.h>
+
 #include "eeprommanager.h"
 
 EEPROMManager::EEPROMManager()

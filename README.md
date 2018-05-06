@@ -1,3 +1,6 @@
+# UNDER DEVELOPMENT
+You can follow the development of this project in http://twitch.tv/killercode (also you can watch some gamming stream once in a while)
+
 # WeatherStation
 ESP8266 Weather Station with embedded WebServer
 

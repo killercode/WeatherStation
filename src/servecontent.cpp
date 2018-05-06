@@ -2,6 +2,7 @@
 #include "servecontent.h"
 #include <ESP8266WebServer.h>
 #include "eeprommanager.h"
+#include "FS.h"
 
 ESP8266WebServer* myserver;
 EEPROMManager* settingManager;
@@ -39,6 +40,7 @@ bool ServeContent::is_authenticated()
 //login page, also called for disconnect
 void ServeContent::loginPage()
 {
+  // TODO: REPLACE ALL LOGIC TO WORK WITH AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!
   String msg;
   if (myserver->hasHeader("Cookie"))
   {
@@ -64,20 +66,32 @@ void ServeContent::loginPage()
       Serial.println("Log in Successful");
       return;
     }
-    msg = "Wrong username/password! try again.";
-    Serial.println("Log in Failed");
+      String header = "HTTP/1.1 401 OK\r\nCache-Control: no-cache\r\n\r\n";
+      myserver->sendContent(header);
+      Serial.println("Failed Login");
+      return;
   }
-  String content = "<html><body><form action='/login' method='POST'>To log in, please use : admin/admin<br>";
+
+  if (SPIFFS.exists("/login.html")) 
+  {
+      File file = SPIFFS.open("/login.html", "r");
+      size_t sent = myserver->streamFile(file, "text/html"); 
+      file.close();
+
+    }
+
+ /* String content = "<html><body><form action='/login' method='POST'>To log in, please use : admin/admin<br>";
   content += "User:<input type='text' name='USERNAME' placeholder='user name'><br>";
   content += "Password:<input type='password' name='PASSWORD' placeholder='password'><br>";
   content += "<input type='submit' name='SUBMIT' value='Submit'></form>" + msg + "<br>";
   content += "You also can go <a href='/inline'>here</a></body></html>";
-  myserver->send(200, "text/html", content);
+  myserver->send(200, "text/html", content);*/
 }
 
 //root page can be accessed only if authentification is ok
 void ServeContent::mainPage()
 {
+  // TODO: REPLACE ALL LOGIC TO WORK WITH AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!
   Serial.println("Enter handleRoot");
   String header;
   if (!is_authenticated())
@@ -98,6 +112,7 @@ void ServeContent::mainPage()
 //root page can be accessed only if authentification is ok
 void ServeContent::resetPassword()
 {
+  // TODO: REPLACE ALL LOGIC TO WORK WITH AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!
   Serial.println("Enter handleResetPassword");
   String header;
   String msg = "";
@@ -159,6 +174,7 @@ void ServeContent::resetPassword()
 //root page can be accessed only if authentification is ok
 void ServeContent::wifiSetting()
 {
+  // TODO: REPLACE ALL LOGIC TO WORK WITH AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!
   Serial.println("Enter handleConfigureWifi");
   String header;
   String msg = "";

@@ -17,7 +17,9 @@ class ServeContent
         void loginPage();
         void handleNotFound();
     private:
-        bool is_authenticated(); 
+        bool is_authenticated();
+        bool handleFileRead(String path);
+        String getContentType(String filename); 
         
 };
 

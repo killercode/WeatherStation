@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#include <FS.h>
 #include "eeprommanager.h"
 #include "servecontent.h"
 
@@ -61,6 +62,28 @@ void setup()
       Serial.println("Failed to start Access Point");
     }
   }
+
+  if (!SPIFFS.begin())
+  {
+    Serial.println("SPIFF mount failed");
+  }
+  else
+  {
+    Serial.println("SPIFF mount succeded");
+  }
+delay(500);
+Serial.println("Starting Read stuff in SPIFFS");
+Dir dir = SPIFFS.openDir("/");
+    while (dir.next()) {
+      String fileName = dir.fileName();
+      size_t fileSize = dir.fileSize();
+      Serial.printf("FS File: %s, size: %s\n", fileName.c_str(), String(fileSize).c_str());
+   
+   Serial.println();
+    }
+
+    Serial.println("Ended SPIFF Reading");
+
 
   serveContent=ServeContent(&server, &eepromsettings);
   Serial.println(WiFi.localIP());

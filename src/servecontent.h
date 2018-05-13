@@ -16,6 +16,7 @@ class ServeContent
         void wifiSetting();
         void loginPage();
         void handleNotFound();
+        void getReadings();
     private:
         bool is_authenticated();
         bool handleFileRead(String path);

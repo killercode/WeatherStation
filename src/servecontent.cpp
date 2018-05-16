@@ -8,7 +8,6 @@ EEPROMManager* settingManager;
 
 ServeContent::ServeContent()
 {
-    
 }
 
 ServeContent::ServeContent(ESP8266WebServer* pServer, EEPROMManager* eeprommanager)

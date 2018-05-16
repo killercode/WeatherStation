@@ -369,7 +369,7 @@ void LinkedList<T>::sort(int (*cmp)(T &, T &))
 		{
 			ListNode<T> *a = *joinPoint;
 			ListNode<T> *a_end = findEndOfSortedString(a, cmp);
-	
+
 			if(!a_end->next	)
 			{
 				if(joinPoint == &root)
@@ -427,7 +427,7 @@ void LinkedList<T>::sort(int (*cmp)(T &, T &))
 }
 
 template<typename T>
-ListNode<T>* LinkedList<T>::findEndOfSortedString(ListNode<T> *p, int (*cmp)(T &, T &)) 
+ListNode<T>* LinkedList<T>::findEndOfSortedString(ListNode<T> *p, int (*cmp)(T &, T &))
 {
 	while(p->next && cmp(p->data, p->next->data) <= 0)
 	{

@@ -6,15 +6,17 @@
 
 ESP8266WebServer *myserver;
 EEPROMManager *settingManager;
+Reading *readSensor;
 
 ServeContent::ServeContent()
 {
 }
 
-ServeContent::ServeContent(ESP8266WebServer *pServer, EEPROMManager *eeprommanager)
+ServeContent::ServeContent(ESP8266WebServer *pServer, EEPROMManager *eeprommanager, Reading *reading)
 {
   myserver = pServer;
   settingManager = eeprommanager;
+  readSensor = reading;
 }
 
 //Check if header is present and correct
@@ -73,7 +75,50 @@ void ServeContent::loginPage()
   if (SPIFFS.exists("/login.html"))
   {
     File file = SPIFFS.open("/login.html", "r");
-    size_t sent = myserver->streamFile(file, "text/html");
+    myserver->streamFile(file, "text/html");
+    file.close();
+  }
+}
+
+void ServeContent::noInternet()
+{
+  Serial.println("Enter noInternet");
+  String header;
+  String msg = "";
+  
+  if (myserver->hasArg("SSID") && myserver->hasArg("WIFIPASS"))
+  {
+    if (myserver->arg("SSID").length() > 1)
+    {
+      settingManager->setSetting("SSID", myserver->arg("SSID"));
+    }
+    else
+    {
+      msg += "SSID is too short<br> ";
+    }
+    if (myserver->arg("WIFIPASS").length() > 1)
+    {
+      settingManager->setSetting("WIFIPASS", myserver->arg("WIFIPASS"));
+    }
+    else
+    {
+      msg += "Wifi password too short";
+    }
+    if (msg.length() == 0)
+    {
+      settingManager->writeRecords();
+      settingManager->settings.clear();
+      settingManager->readRecords();
+      WiFi.disconnect(true);
+      ESP.restart();
+      delay(1000);
+    }
+  }
+
+  if (SPIFFS.exists("/nointernet.html"))
+  {
+    File file = SPIFFS.open("/nointernet.html", "r");
+    myserver->streamFile(file, "text/html");
     file.close();
   }
 }
@@ -90,21 +135,22 @@ void ServeContent::mainPage()
     myserver->sendContent(header);
     return;
   }*/
-  String content = "<html><body><H2>hello, you successfully connected to esp8266!</H2><br>";
-  if (myserver->hasHeader("User-Agent"))
+  if (SPIFFS.exists("/main.html"))
   {
-    content += "the user agent used is : " + myserver->header("User-Agent") + "<br><br>";
+    File file = SPIFFS.open("/main.html", "r");
+    myserver->streamFile(file, "text/html");
+    file.close();
   }
-  content += "You can access this page until you <a href=\"/login?DISCONNECT=YES\">disconnect</a></body></html>";
-  myserver->send(200, "text/html", content);
 }
 
 
 void ServeContent::getReadings()
 {
   Serial.println("Enter getReadings");
+
+
   // TODO Implement data provider
-  //myserver->send(200, "text/html", temp + ";" + humidity + ";" + pressure);
+  myserver->send(200, "text/html", "{\"temperature\": " + String(readSensor->GetTemperature()) +  ",\"humidity\":" + String(readSensor->GetHumidity()) + "}");
 }
 
 //root page can be accessed only if authentification is ok

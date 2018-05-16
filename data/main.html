@@ -25,7 +25,6 @@
 
 </head>
 <body>
-
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -36,47 +35,37 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Weather Station</a>
+                <a class="navbar-brand" href="/">Weather Station</a>
             </div>
             <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
-                            <!-- If I need some search it goes here :) 
-                                
-                                <li class="sidebar-search">
-                                <div class="input-group custom-search-form">
-                                    <input type="text" class="form-control" placeholder="Search...">
-                                    <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                                </div>
-                                
-                            </li> -->
                             <li>
-                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                <a href="/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="flot.html">Humidity</a> <!-- External Link -->
+                                        <a href="humidity">Humidity</a> <!-- External Link -->
                                     </li>
                                     <li>
-                                        <a href="morris.html">Temperature</a> <!-- External Link -->
+                                        <a href="temperature">Temperature</a> <!-- External Link -->
                                     </li>
                                     <li>
-                                        <a href="morris.html">Pressure</a> <!-- External Link -->
+                                        <a href="pressure">Pressure</a> <!-- External Link -->
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
-                            <li>
-                                <a href="tables.html"><i class="fa fa-table fa-fw"></i> Configuration</a>
+                            <li id="settings">
+                                <a href="/settings"><i class="fa fa-table fa-fw"></i> Configuration</a>
                             </li>
-                            <li>
-                                    <a href="tables.html"><i class="fa fa-user fa-fw"></i> Login</a>
+                            <li id="login">
+                                    <a href="/login"><i class="fa fa-user fa-fw"></i> Login</a>
+                            </li>
+                            <li id="logout">
+                                    <a href="/login?DISCONNECT=YES"><i class="fa fa-user fa-fw"></i> Logout</a>
                             </li>
                             
                         </ul>
@@ -174,7 +163,27 @@
     <script language="javascript">
     // this is the id of the form
 
-    $( document ).ready(function() {
+    $( window ).on("load", function() {
+
+        var cookies = document.cookie.split("=");
+        if (cookies[1] == "1")
+        {
+            //we are logged in
+            console.log("HEY I LOGGED IN");
+            $("#login").hide();
+            $("#settings").show();
+            $("#logout").show();
+        }
+        else
+        {
+            // nop....
+            console.log("HEY I'M NOT LOGGED IN");
+            $("#login").show();
+            $("#logout").hide();
+            $("#settings").hide();
+        }
+
+
         $.ajax(
             {
                 type: "GET",
@@ -187,13 +196,17 @@
                         windows.location.href="/login";
                     }
                 }
-            });     
-    })
-    .done(function( data ) {
-    if ( console && console.log ) {
-      console.log( "Sample of data:", data.slice( 0, 100 ) );
-    }
-  });
+            })
+            .done(function( data ) {
+                if ( console && console.log )
+                {
+                    console.log( "Sample of data:", data.slice( 0, 100 ) );
+                }     
+            });
+    
+        } );
+
+
 
     </script>
 

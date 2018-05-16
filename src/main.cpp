@@ -16,7 +16,7 @@ void setup()
   //5-after setting up it should reboot
   Serial.begin(115200);
   Serial.println("Starting...");
-  eepromsettings.readRecords(); 
+  eepromsettings.readRecords();
   bool bWifiFailed = false;
   Serial.println("Trying to fetch settings from EEPROM");
   if (eepromsettings.hasSetting("SSID") && eepromsettings.hasSetting("WIFIPASS"))

@@ -23,7 +23,7 @@ void setup()
   {
     //Start WIFI
     WiFi.begin(eepromsettings.getSetting("SSID").c_str(), eepromsettings.getSetting("WIFIPASS").c_str());
-    int failCounter = 0;   
+    int failCounter = 0;
     while ((WiFi.status() != WL_CONNECTED) && ( failCounter < 30 ))
     {
       delay(500);

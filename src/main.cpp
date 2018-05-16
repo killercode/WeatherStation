@@ -138,7 +138,7 @@ void setup()
 	  if (!MDNS.begin("weatherstation"))
 	  {
 			Serial.println("Error setting up MDNS responder!");
-			while(1) 
+			while(1)
 			{
 			  	delay(1000);
 			}

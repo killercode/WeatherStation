@@ -16,18 +16,14 @@ void setup()
   //5-after setting up it should reboot
   Serial.begin(115200);
   Serial.println("Starting...");
-  
   eepromsettings.readRecords(); 
   bool bWifiFailed = false;
   Serial.println("Trying to fetch settings from EEPROM");
   if (eepromsettings.hasSetting("SSID") && eepromsettings.hasSetting("WIFIPASS"))
   {
     //Start WIFI
-
     WiFi.begin(eepromsettings.getSetting("SSID").c_str(), eepromsettings.getSetting("WIFIPASS").c_str());
-
-    int failCounter = 0;
-    
+    int failCounter = 0;   
     while ((WiFi.status() != WL_CONNECTED) && ( failCounter < 30 ))
     {
       delay(500);

@@ -7,7 +7,6 @@
 
 class ServeContent
 {
-    
     public:
         ServeContent();
         ServeContent(ESP8266WebServer* pServer, EEPROMManager* eeprommanager);
@@ -17,8 +16,6 @@ class ServeContent
         void loginPage();
         void handleNotFound();
     private:
-        bool is_authenticated(); 
-        
+        bool is_authenticated();
 };
-
 #endif

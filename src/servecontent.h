@@ -20,11 +20,7 @@ class ServeContent
         void noInternet();
     private:
         bool is_authenticated();
-<<<<<<< HEAD
         bool handleFileRead(String path);
-        String getContentType(String filename); 
-        
-=======
->>>>>>> 2235cbcf3a4fbf155376b8326945e3c6a79f42ea
+        String getContentType(String filename);
 };
 #endif

@@ -23,7 +23,6 @@ void EEPROMManager::readRecords()
     EEPROM.begin(1024);
     char arrayToStore[500];
     EEPROM.get(_initialAddress, arrayToStore);
-   
     _raw = arrayToStore;
     parseRecords();
     EEPROM.end();
@@ -32,7 +31,6 @@ void EEPROMManager::readRecords()
 void EEPROMManager::writeRecords()
 {
     EEPROM.begin(1024);
-    
     _raw = "{";
     for(int i = 0; i < settings.size(); i++)
     {
@@ -43,7 +41,6 @@ void EEPROMManager::writeRecords()
         _raw = _raw + ';';
     }
     _raw = _raw + '}';
-    
     char arrayToStore[500];
     _raw.toCharArray(arrayToStore, _raw.length()+1);
     EEPROM.put(_initialAddress, arrayToStore);

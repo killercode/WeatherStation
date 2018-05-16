@@ -37,20 +37,25 @@ void setup()
   //5-after setting up it should reboot
   Serial.begin(115200);
   Serial.println("Starting...");
-  
-  eepromsettings.readRecords(); 
+  eepromsettings.readRecords();
   bool bWifiFailed = false;
   Serial.println("Trying to fetch settings from EEPROM");
   if (eepromsettings.hasSetting("SSID") && eepromsettings.hasSetting("WIFIPASS"))
   {
     //Start WIFI
+<<<<<<< HEAD
     Serial.println(eepromsettings.getSetting("SSID"));
     Serial.println(eepromsettings.getSetting("WIFIPASS"));
+=======
+>>>>>>> 2235cbcf3a4fbf155376b8326945e3c6a79f42ea
     WiFi.begin(eepromsettings.getSetting("SSID").c_str(), eepromsettings.getSetting("WIFIPASS").c_str());
-
     int failCounter = 0;
+<<<<<<< HEAD
     WiFi.mode(WIFI_STA);
     while ((WiFi.status() != WL_CONNECTED) && ( failCounter < 60 ))
+=======
+    while ((WiFi.status() != WL_CONNECTED) && ( failCounter < 30 ))
+>>>>>>> 2235cbcf3a4fbf155376b8326945e3c6a79f42ea
     {
       Serial.println(WiFi.status());
       delay(500);
@@ -156,6 +161,11 @@ else
 
 void loop()
 {
+<<<<<<< HEAD
   server.handleClient(); 
 }
 
+=======
+  server.handleClient();
+}
+>>>>>>> 2235cbcf3a4fbf155376b8326945e3c6a79f42ea

@@ -1,8 +1,8 @@
 #include "Arduino.h"
 #include "Setting.h"
+
 Setting::Setting()
 {
-
 }
 
 Setting::Setting(String k, String v)

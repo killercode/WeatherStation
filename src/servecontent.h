@@ -8,7 +8,6 @@
 
 class ServeContent
 {
-    
     public:
         ServeContent();
         ServeContent(ESP8266WebServer* pServer, EEPROMManager* eeprommanager, Reading* reading);
@@ -21,9 +20,11 @@ class ServeContent
         void noInternet();
     private:
         bool is_authenticated();
+<<<<<<< HEAD
         bool handleFileRead(String path);
         String getContentType(String filename); 
         
+=======
+>>>>>>> 2235cbcf3a4fbf155376b8326945e3c6a79f42ea
 };
-
 #endif

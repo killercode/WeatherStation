@@ -32,7 +32,7 @@ sudo: false
 cache:
     directories:
         - "~/.platformio"
-env: 
+env:
   - PLATFORMIO_CI_SRC=test/test_main.cpp
   - PLATFORMIO_CI_SRC=src/main.cpp
 

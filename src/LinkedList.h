@@ -198,7 +198,7 @@ bool LinkedList<T>::add(T _t)
 	ListNode<T> *tmp = new ListNode<T>();
 	tmp->data = _t;
 	tmp->next = NULL;
-	
+
 	if(root)
 	{
 		// Already have elements inserted
@@ -230,10 +230,10 @@ bool LinkedList<T>::unshift(T _t)
 	tmp->next = root;
 	tmp->data = _t;
 	root = tmp;
-	
+
 	_size++;
 	isCached = false;
-	
+
 	return true;
 }
 
@@ -257,7 +257,7 @@ T LinkedList<T>::pop()
 	{
 		return T();
 	}
-	
+
 	isCached = false;
 
 	if(_size >= 2)
@@ -320,7 +320,7 @@ T LinkedList<T>::remove(int index)
 	{
 		return shift();
 	}
-	
+
 	if (index == _size-1)
 	{
 		return pop();
@@ -356,29 +356,29 @@ void LinkedList<T>::clear()
 template<typename T>
 void LinkedList<T>::sort(int (*cmp)(T &, T &))
 {
-	if(_size < 2) 
+	if(_size < 2)
 	{
 		return; // trivial case;
 	}
 
-	for(;;) 
-	{	
+	for(;;)
+	{
 		ListNode<T> **joinPoint = &root;
 
-		while(*joinPoint) 
+		while(*joinPoint)
 		{
 			ListNode<T> *a = *joinPoint;
 			ListNode<T> *a_end = findEndOfSortedString(a, cmp);
 	
-			if(!a_end->next	) 
+			if(!a_end->next	)
 			{
-				if(joinPoint == &root) 
+				if(joinPoint == &root)
 				{
 					last = a_end;
 					isCached = false;
 					return;
 				}
-				else 
+				else
 				{
 					break;
 				}
@@ -392,30 +392,30 @@ void LinkedList<T>::sort(int (*cmp)(T &, T &))
 			a_end->next = NULL;
 			b_end->next = NULL;
 
-			while(a && b) 
+			while(a && b)
 			{
-				if(cmp(a->data, b->data) <= 0) 
+				if(cmp(a->data, b->data) <= 0)
 				{
 					*joinPoint = a;
 					joinPoint = &a->next;
-					a = a->next;	
+					a = a->next;
 				}
-				else 
+				else
 				{
 					*joinPoint = b;
 					joinPoint = &b->next;
-					b = b->next;	
+					b = b->next;
 				}
 			}
 
-			if(a) 
+			if(a)
 			{
 				*joinPoint = a;
 				while(a->next) a = a->next;
 				a->next = tail;
 				joinPoint = &a->next;
 			}
-			else 
+			else
 			{
 				*joinPoint = b;
 				while(b->next) b = b->next;
@@ -429,12 +429,10 @@ void LinkedList<T>::sort(int (*cmp)(T &, T &))
 template<typename T>
 ListNode<T>* LinkedList<T>::findEndOfSortedString(ListNode<T> *p, int (*cmp)(T &, T &)) 
 {
-	while(p->next && cmp(p->data, p->next->data) <= 0) 
+	while(p->next && cmp(p->data, p->next->data) <= 0)
 	{
 		p = p->next;
 	}
-	
 	return p;
 }
-
 #endif

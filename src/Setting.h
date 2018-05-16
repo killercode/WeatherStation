@@ -4,7 +4,7 @@
 #ifndef Setting_h
 #define Setting_h
 
-class Setting 
+class Setting
 {
 	public:
 		Setting(String key, String value);

@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/killercode/weatherstation/badge)](https://www.codefactor.io/repository/github/killercode/weatherstation)
+
 # UNDER DEVELOPMENT
 You can follow the development of this project in http://twitch.tv/killercode (also you can watch some gamming stream once in a while)
 

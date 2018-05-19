@@ -92,7 +92,7 @@
                                 <i class="wi wi-thermometer" style="font-size:5em"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge"><span id="temperature">15º</span></div>
+                                <div class="huge"><span id="temperature">--.--º</span></div>
                                 <div>Temperature!</div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                                 <i class="wi wi-humidity" style="font-size:5em"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge"><span id="humidity">75%</span></div>
+                                <div class="huge"><span id="humidity">--.--%</span></div>
                                 <div>Humidity!</div>
                             </div>
                         </div>
@@ -162,9 +162,9 @@
 
     <script language="javascript">
     // this is the id of the form
-
+    setInterval( GetReadings, 15000 );
     $( window ).on("load", function() {
-
+        
         var cookies = document.cookie.split("=");
         if (cookies[1] == "1")
         {
@@ -188,6 +188,7 @@
             {
                 type: "GET",
                 url: "/reading",
+                dataType: "json",
                 statusCode:{
                     302: function (response) {
                         windows.location.href="/";
@@ -200,13 +201,66 @@
             .done(function( data ) {
                 if ( console && console.log )
                 {
-                    console.log( "Sample of data:", data.slice( 0, 100 ) );
+                    if (data.temperature == undefined || data.temperature == 0 )
+                    {
+                        $('#temperature').text("--.-- ºC");
+                    }
+                    else{
+                        $('#temperature').text(data.temperature + "º");
+                    }
+                    if (data.humidity == undefined || data.humidity == 0)
+                    {
+                        $('#humidity').text("--.-- %");
+                    }
+                    else
+                    {
+                        $('#humidity').text(data.humidity + "%");
+                    }
+                    if (data.pressure == undefined || data.pressure == 0)
+                    {
+                        $('pressure').text("--.-- mB")
+                    }
+                    else
+                    {
+                        $('pressure').text(data.pressure + "mB");
+                    }
                 }     
             });
     
         } );
 
-
+        function GetReadings()
+        {
+            $(function() {
+                $.getJSON(
+                "/reading",
+        function(json){ 
+            if (json.temperature == undefined || json.temperature == 0 )
+            {
+                $('#temperature').text("--.-- ºC");
+            }
+            else{
+                $('#temperature').text(json.temperature + " ºC");
+            }
+            if (json.humidity == undefined || json.humidity == 0)
+            {
+                $('#humidity').text("--.-- %");
+            }
+            else
+            {
+                $('#humidity').text(json.humidity + " %");
+            }
+            if (json.pressure == undefined || json.pressure == 0)
+            {
+                $('#pressure').text("--.-- mB");
+            }
+            else
+            {
+                $('#pressure').text(json.pressure + " mB");
+            }
+        });
+    });
+}
 
     </script>
 

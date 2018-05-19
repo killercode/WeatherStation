@@ -109,9 +109,9 @@ void ServeContent::noInternet()
       settingManager->writeRecords();
       settingManager->settings.clear();
       settingManager->readRecords();
-      WiFi.disconnect(true);
-      ESP.restart();
-      delay(1000);
+
+      String header = "HTTP/1.1 301 OK\r\nSet-Cookie: ESPSESSIONID=1\r\nLocation: /restart\r\nCache-Control: no-cache\r\n\r\n";
+      myserver->sendContent(header);
     }
   }
 
@@ -150,7 +150,7 @@ void ServeContent::getReadings()
 
 
   // TODO Implement data provider
-  myserver->send(200, "text/html", "{\"temperature\": " + String(readSensor->GetTemperature()) +  ",\"humidity\":" + String(readSensor->GetHumidity()) + "}");
+  myserver->send(200, "text/html", "{\"temperature\": " + String(readSensor->GetTemperature()) +  ",\"humidity\":" + String(readSensor->GetHumidity()) + ",\"pressure\":" + String(readSensor->GetPressure()) + "}");
 }
 
 //root page can be accessed only if authentification is ok
@@ -282,4 +282,18 @@ void ServeContent::handleNotFound()
     message += " " + myserver->argName(i) + ": " + myserver->arg(i) + "\n";
   }
   myserver->send(404, "text/plain", message);
+}
+
+void ServeContent::restart()
+{
+    if (SPIFFS.exists("/restarting.html"))
+    {
+      File file = SPIFFS.open("/restarting.html", "r");
+      myserver->streamFile(file, "text/html");
+      file.close();
+    }
+    delay(500);
+    WiFi.disconnect(true);
+    ESP.restart();
+    delay(1000);
 }

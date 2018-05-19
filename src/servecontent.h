@@ -18,6 +18,7 @@ class ServeContent
         void handleNotFound();
         void getReadings();
         void noInternet();
+        void restart();
     private:
         bool is_authenticated();
         bool handleFileRead(String path);

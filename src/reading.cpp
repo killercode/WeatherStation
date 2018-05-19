@@ -3,6 +3,7 @@
 
 float temperature = 0;
 float humidity = 0;
+float pressure = 0;
 
 Reading::Reading()
 {
@@ -26,4 +27,14 @@ float Reading::GetHumidity()
 void Reading::SetHumidity(float value)
 {
     humidity = value;
+}
+
+float Reading::GetPressure()
+{
+    return pressure;
+}
+
+void Reading::SetPressure(float value)
+{
+    pressure = value;
 }

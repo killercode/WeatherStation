@@ -1,5 +1,4 @@
 #include "Arduino.h"
-
 #ifndef reading_h
 #define reading_h
 
@@ -11,5 +10,7 @@ class Reading
         void SetTemperature(float value);
         float GetHumidity();
         void SetHumidity(float value0);
+        float GetPressure();
+        void SetPressure(float value1);
 };
 #endif

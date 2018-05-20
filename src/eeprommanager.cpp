@@ -10,7 +10,7 @@ EEPROMManager::EEPROMManager()
 
 bool EEPROMManager::hasSetting(String keyName)
 {
-    for(int i = 0; i < settings.size(); i++)
+    for( int i = 0; i < settings.size(); i++ )
     {
         if (settings.get(i).getKey().equals(keyName))
         return true;
@@ -32,7 +32,7 @@ void EEPROMManager::writeRecords()
 {
     EEPROM.begin(1024);
     _raw = "{";
-    for(int i = 0; i < settings.size(); i++)
+    for( int i = 0; i < settings.size(); i++ )
     {
         Setting s = settings.get(i);
         _raw = _raw + s.getKey();
@@ -50,13 +50,13 @@ void EEPROMManager::writeRecords()
 void EEPROMManager::setSetting(String key, String value)
 {
     bool bFound = false;
-    for( int i = 0; i < settings.size(); i++)
+    for( int i = 0; i < settings.size(); i++ )
     {
-        if(settings.get(i).getKey().equals( key ))
+        if( settings.get(i).getKey().equals( key ) )
         {
             Setting s = settings.get(i);
             s.setValue(value);
-            settings.set(i,s);
+            settings.set(i, s);
             bFound = true;
             break;
         }
@@ -72,9 +72,9 @@ void EEPROMManager::setSetting(String key, String value)
 
 String EEPROMManager::getSetting(String key)
 {
-    for( int i = 0; i < settings.size(); i++)
+    for( int i = 0; i < settings.size(); i++ )
     {
-        if(settings.get(i).getKey().equals( key ))
+        if( settings.get(i).getKey().equals( key ) )
         {
             return settings.get(i).getValue();
         }
@@ -86,7 +86,7 @@ void EEPROMManager::removeSetting(String key)
 {
     for( int i = 0; i < settings.size(); i++ )
     {
-        if(settings.get(i).getKey().equals( key ))
+        if( settings.get(i).getKey().equals( key ) )
         {
             settings.remove(i);
         }
@@ -102,11 +102,11 @@ void EEPROMManager::parseRecords()
     String value = String();
     Setting s = Setting();
 
-    for(int i = 0; i < 500; i++)
+    for( int i = 0; i < 500; i++ )
     {
         if (!fStart)
         {
-            if(_raw[i] == '{')
+            if( _raw[i] == '{' )
             {
                 fStart = true;
                 fIsKey = true;
@@ -129,7 +129,7 @@ void EEPROMManager::parseRecords()
                 s.setValue(value);
                 value = "";
                 settings.add(s);
-                s=Setting();
+                s = Setting();
                 continue;
             }
             else if (_raw[i] == '}')
@@ -143,7 +143,7 @@ void EEPROMManager::parseRecords()
                 {
                     key = key + _raw[i];
                 }
-                else if(fIsValue)
+                else if( fIsValue )
                 {
                     value = value + _raw[i];
                 }

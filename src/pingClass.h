@@ -1,15 +1,16 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 
-#ifndef pingClass_h
-#define pingClass_h
+#ifndef SRC_PINGCLASS_H_
+#define SRC_PINGCLASS_H_
 
 extern "C" {
   #include <ping.h>
 }
 
-class PingClass {
-  public:
+class PingClass 
+{
+ public:
     PingClass();
 
     bool ping(IPAddress dest,   byte count = 5);
@@ -17,7 +18,7 @@ class PingClass {
 
     int averageTime();
 
-  protected:
+ protected:
     static void _ping_sent_cb(void *opt, void *pdata);
     static void _ping_recv_cb(void *opt, void *pdata);
 
@@ -28,4 +29,4 @@ class PingClass {
     static int _avg_time;
 };
 
-#endif
+#endif  // SRC_PINGCLASS_H_

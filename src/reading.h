@@ -1,10 +1,10 @@
 #include "Arduino.h"
-#ifndef reading_h
-#define reading_h
+#ifndef SRC_READING_H_
+#define SRC_READING_H_
 
 class Reading
 {
-    public:
+ public:
         Reading();
         float GetTemperature();
         void SetTemperature(float value);
@@ -13,4 +13,4 @@ class Reading
         float GetPressure();
         void SetPressure(float value1);
 };
-#endif
+#endif  // SRC_READING_H_

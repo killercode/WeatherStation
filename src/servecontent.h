@@ -3,12 +3,12 @@
 #include "eeprommanager.h"
 #include "reading.h"
 
-#ifndef servecontent_h
-#define servecontent_h
+#ifndef SRC_SERVECONTENT_H_
+#define SRC_SERVECONTENT_H_
 
 class ServeContent
 {
-    public:
+ public:
         ServeContent();
         ServeContent(ESP8266WebServer* pServer, EEPROMManager* eeprommanager, Reading* reading);
         void mainPage();
@@ -19,9 +19,9 @@ class ServeContent
         void getReadings();
         void noInternet();
         void restart();
-    private:
+ private:
         bool is_authenticated();
         bool handleFileRead(String path);
         String getContentType(String filename);
 };
-#endif
+#endif  // SRC_SERVECONTENT_H_

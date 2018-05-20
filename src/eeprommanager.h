@@ -2,12 +2,12 @@
 #include <LinkedList.h>
 #include "Setting.h"
 
-#ifndef eeprommanager_h
-#define eeprommanager_h
+#ifndef SRC_EEPROMMANAGER_H_
+#define SRC_EEPROMMANAGER_H_
 
 class EEPROMManager
 {
-    public:
+ public:
         EEPROMManager();
         void readRecords();
         void writeRecords();
@@ -17,11 +17,11 @@ class EEPROMManager
         bool hasSetting(String key);
         LinkedList<Setting> settings = LinkedList<Setting>();
 
-    private:
+ private:
         String _recordRaw;
         String _raw;
         int _initialAddress;
         void parseRecords();
 };
 
-#endif
+#endif  // SRC_EEPROMMANAGER_H_

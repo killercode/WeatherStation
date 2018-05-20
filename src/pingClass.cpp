@@ -6,7 +6,6 @@ extern "C" void esp_yield();
 
 PingClass::PingClass() 
 {
-
 }
 
 bool PingClass::ping(IPAddress dest, byte count) {
@@ -27,7 +26,7 @@ bool PingClass::ping(IPAddress dest, byte count) {
 
     // Callbacks
     _options.recv_function = reinterpret_cast<ping_recv_function>(&PingClass::_ping_recv_cb);
-    _options.sent_function = NULL; //reinterpret_cast<ping_sent_function>(&_ping_sent_cb);
+    _options.sent_function = NULL;  // reinterpret_cast<ping_sent_function>(&_ping_sent_cb);
 
     // Let's go!
     if(ping_start(&_options)) {
@@ -47,19 +46,18 @@ bool PingClass::ping(const char* host, byte count) {
     return false;
 }
 
-int PingClass::averageTime() {
-    return _avg_time;
-}
-
 void PingClass::_ping_recv_cb(void *opt, void *resp) {
     // Cast the parameters to get some usable info
     ping_resp*   ping_resp = reinterpret_cast<struct ping_resp*>(resp);
-    //ping_option* ping_opt  = reinterpret_cast<struct ping_option*>(opt);
+    // ping_option* ping_opt  = reinterpret_cast<struct ping_option*>(opt);
 
     // Error or success?
     if (ping_resp->ping_err == -1)
-        _errors++;
-    else {
+    {
+         _errors++;
+    }   
+    else 
+    {
         _success++;
         _avg_time += ping_resp->resp_time;
     }

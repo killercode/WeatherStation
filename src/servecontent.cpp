@@ -19,7 +19,7 @@ ServeContent::ServeContent(ESP8266WebServer *pServer, EEPROMManager *eeprommanag
   readSensor = reading;
 }
 
-//Check if header is present and correct
+// Check if header is present and correct
 bool ServeContent::is_authenticated()
 {
   Serial.println("Enter is_authentified");
@@ -38,7 +38,7 @@ bool ServeContent::is_authenticated()
   return false;
 }
 
-//login page, also called for disconnect
+// login page, also called for disconnect
 void ServeContent::loginPage()
 {
   String msg;
@@ -123,7 +123,7 @@ void ServeContent::noInternet()
   }
 }
 
-//root page can be accessed only if authentification is ok
+// root page can be accessed only if authentification is ok
 void ServeContent::mainPage()
 {
   // TODO: REPLACE ALL LOGIC TO WORK WITH AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -153,7 +153,7 @@ void ServeContent::getReadings()
   myserver->send(200, "text/html", "{\"temperature\": " + String(readSensor->GetTemperature()) +  ",\"humidity\":" + String(readSensor->GetHumidity()) + ",\"pressure\":" + String(readSensor->GetPressure()) + "}");
 }
 
-//root page can be accessed only if authentification is ok
+// root page can be accessed only if authentification is ok
 void ServeContent::resetPassword()
 {
   // TODO: REPLACE ALL LOGIC TO WORK WITH AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -215,7 +215,7 @@ void ServeContent::resetPassword()
   myserver->send(200, "text/html", content);
 }
 
-//root page can be accessed only if authentification is ok
+// root page can be accessed only if authentification is ok
 void ServeContent::wifiSetting()
 {
   // TODO: REPLACE ALL LOGIC TO WORK WITH AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -266,7 +266,7 @@ void ServeContent::wifiSetting()
   myserver->send(200, "text/html", content);
 }
 
-//no need authentification
+// no need authentification
 void ServeContent::handleNotFound()
 {
   String message = "File Not Found\n\n";

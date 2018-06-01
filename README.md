@@ -1,7 +1,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/killercode/weatherstation/badge)](https://www.codefactor.io/repository/github/killercode/weatherstation)
 
 WeatherStation values:
-http://iot.mafralab.com:8080/dashboards/d8e92280-5a24-11e8-bd3f-41e5e484ba14?publicId=dbc18920-5a1f-11e8-bd3f-41e5e484ba14
+http://iot.mafralab.com:8080/dashboards/d184dfc0-652d-11e8-a523-45e547382c4f?publicId=89c1ae00-652f-11e8-a523-45e547382c4f
 
 # UNDER DEVELOPMENT
 You can follow the development of this project in http://twitch.tv/killercode (also you can watch some gamming stream once in a while)
